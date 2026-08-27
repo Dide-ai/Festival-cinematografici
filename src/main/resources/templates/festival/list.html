@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SiwFestival - Festival</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<form th:action="@{/logout}" method="POST" style="display:inline;">
+				<button type="submit">Logout</button>
+			</form>
+		</div>
+		<div th:unless="${userDetails}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+
+	<h1>Festival</h1>
+	<div th:if="${elencoFestival == null || elencoFestival.isEmpty()}">Non ci sono festival nel sistema</div>
+	<ul>
+		<li th:each="festival : ${elencoFestival}">
+			<a th:href="@{'/festival/' + ${festival.id}}" th:text="${festival.nome}">nome</a>
+			<span th:text="'(' + ${festival.anno} + ', ' + ${festival.citta} + ')'">anno</span>
+		</li>
+	</ul>
+
+	<div th:if="${isAdmin}"><a href="/admin/festival/nuovo">Aggiungi un festival</a></div>
+</body>
+
+</html>

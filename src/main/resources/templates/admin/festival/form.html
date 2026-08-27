@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SiwFestival - Festival</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<form th:action="@{/logout}" method="POST" style="display:inline;">
+				<button type="submit">Logout</button>
+			</form>
+		</div>
+		<div th:unless="${userDetails}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+
+	<h1 th:text="${festival.id} == null ? 'Aggiungi un festival' : 'Modifica il festival'">Festival</h1>
+	<form th:action="@{/admin/festival}" method="POST" th:object="${festival}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+		</div>
+		<input type="hidden" th:field="*{id}" />
+		<div>
+			Nome: <span><input type="text" th:field="*{nome}" /></span>
+			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+		</div>
+		<div>
+			Anno: <span><input type="text" th:field="*{anno}" /></span>
+			<span th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}"></span>
+		</div>
+		<div>
+			Citta: <span><input type="text" th:field="*{citta}" /></span>
+			<span th:if="${#fields.hasErrors('citta')}" th:errors="*{citta}"></span>
+		</div>
+		<div>
+			Data di inizio: <span><input type="date" th:field="*{dataInizio}" /></span>
+			<span th:if="${#fields.hasErrors('dataInizio')}" th:errors="*{dataInizio}"></span>
+		</div>
+		<div>
+			Data di fine: <span><input type="date" th:field="*{dataFine}" /></span>
+			<span th:if="${#fields.hasErrors('dataFine')}" th:errors="*{dataFine}"></span>
+		</div>
+		<div>
+			Descrizione: <span><textarea rows="4" cols="60" th:field="*{descrizione}"></textarea></span>
+			<span th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}"></span>
+		</div>
+		<div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+	</form>
+	<div><a href="/festival">Torna ai festival</a></div>
+</body>
+
+</html>

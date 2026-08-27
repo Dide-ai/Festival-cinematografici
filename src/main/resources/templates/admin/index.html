@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SiwFestival - Amministrazione</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<form th:action="@{/logout}" method="POST" style="display:inline;">
+				<button type="submit">Logout</button>
+			</form>
+		</div>
+		<div th:unless="${userDetails}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+
+	<h1>Gestione</h1>
+	<h2>(riservato agli amministratori)</h2>
+
+	<h3>Inserimenti</h3>
+	<div><a href="/admin/festival/nuovo">Aggiungi un festival</a></div>
+	<div><a href="/admin/film/nuovo">Aggiungi un film</a></div>
+	<div><a href="/admin/registi/nuovo">Aggiungi un regista</a></div>
+	<div><a href="/admin/sale/nuova">Aggiungi una sala</a></div>
+	<div><a href="/admin/proiezioni/nuova">Programma una proiezione</a></div>
+
+	<h3>Modifiche e cancellazioni</h3>
+	<div><a href="/festival">Festival</a></div>
+	<div><a href="/film">Film</a></div>
+	<div><a href="/registi">Registi</a></div>
+	<div><a href="/admin/sale">Sale</a></div>
+	<div><a href="/admin/proiezioni">Proiezioni</a></div>
+</body>
+
+</html>

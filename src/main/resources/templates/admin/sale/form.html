@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SiwFestival - Sala</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<form th:action="@{/logout}" method="POST" style="display:inline;">
+				<button type="submit">Logout</button>
+			</form>
+		</div>
+		<div th:unless="${userDetails}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+
+	<h1 th:text="${sala.id} == null ? 'Aggiungi una sala' : 'Modifica la sala'">Sala</h1>
+	<form th:action="@{/admin/sale}" method="POST" th:object="${sala}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+		</div>
+		<input type="hidden" th:field="*{id}" />
+		<div>
+			Nome: <span><input type="text" th:field="*{nome}" /></span>
+			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+		</div>
+		<div>
+			Indirizzo: <span><input type="text" th:field="*{indirizzo}" /></span>
+			<span th:if="${#fields.hasErrors('indirizzo')}" th:errors="*{indirizzo}"></span>
+		</div>
+		<div>
+			Capienza: <span><input type="text" th:field="*{capienza}" /></span>
+			<span th:if="${#fields.hasErrors('capienza')}" th:errors="*{capienza}"></span>
+		</div>
+		<div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+	</form>
+	<div><a href="/admin/sale">Torna alle sale</a></div>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SiwFestival - Registi</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<form th:action="@{/logout}" method="POST" style="display:inline;">
+				<button type="submit">Logout</button>
+			</form>
+		</div>
+		<div th:unless="${userDetails}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+
+	<h1>Registi</h1>
+	<div th:if="${elencoRegisti == null || elencoRegisti.isEmpty()}">Non ci sono registi nel sistema</div>
+	<ul>
+		<li th:each="regista : ${elencoRegisti}">
+			<a th:href="@{'/registi/' + ${regista.id}}"
+				th:text="${regista.nome} + ' ' + ${regista.cognome}">nome</a>
+			<span th:text="'(' + ${regista.nazionalita} + ')'">nazionalita</span>
+		</li>
+	</ul>
+
+	<div th:if="${isAdmin}"><a href="/admin/registi/nuovo">Aggiungi un regista</a></div>
+</body>
+
+</html>

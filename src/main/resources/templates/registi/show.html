@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SiwFestival - Dettagli regista</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<form th:action="@{/logout}" method="POST" style="display:inline;">
+				<button type="submit">Logout</button>
+			</form>
+		</div>
+		<div th:unless="${userDetails}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+
+	<h1 th:text="${regista.nome} + ' ' + ${regista.cognome}">Nome del regista</h1>
+	<div><strong>Data di nascita:</strong> <span th:text="${regista.dataNascita}">data</span></div>
+	<div><strong>Nazionalita:</strong> <span th:text="${regista.nazionalita}">nazionalita</span></div>
+
+	<h2>Filmografia</h2>
+	<div th:if="${regista.filmDiretti == null || regista.filmDiretti.isEmpty()}">
+		Nessun film di questo regista nel sistema
+	</div>
+	<ul>
+		<li th:each="film : ${regista.filmDiretti}">
+			<a th:href="@{'/film/' + ${film.id}}" th:text="${film.titolo}">titolo</a>
+			<span th:text="'(' + ${film.anno} + ')'">anno</span>
+		</li>
+	</ul>
+
+	<div th:if="${isAdmin}">
+		<a th:href="@{'/admin/registi/' + ${regista.id} + '/modifica'}">Modifica questo regista</a>
+		<form th:action="@{'/admin/registi/' + ${regista.id} + '/elimina'}" method="POST" style="display:inline;">
+			<button type="submit">Elimina questo regista</button>
+		</form>
+	</div>
+</body>
+
+</html>

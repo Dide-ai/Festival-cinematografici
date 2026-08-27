@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SiwFestival - Homepage</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<form th:action="@{/logout}" method="POST" style="display:inline;">
+				<button type="submit">Logout</button>
+			</form>
+		</div>
+		<div th:unless="${userDetails}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+
+	<h1>Consulta</h1>
+	<div><a href="/festival">Festival</a></div>
+	<div><a href="/film">Film</a></div>
+	<div><a href="/registi">Registi</a></div>
+
+	<h2 th:if="${isAdmin}">Gestisci (riservato agli amministratori)</h2>
+	<div th:if="${isAdmin}"><a href="/admin/index">Inserimenti e cancellazioni</a></div>
+
+	<div th:unless="${userDetails}"><a href="/register">Registrati</a></div>
+</body>
+
+</html>

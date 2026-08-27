@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SiwFestival - Film</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<form th:action="@{/logout}" method="POST" style="display:inline;">
+				<button type="submit">Logout</button>
+			</form>
+		</div>
+		<div th:unless="${userDetails}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+
+	<h1 th:text="${film.id} == null ? 'Aggiungi un film' : 'Modifica il film'">Film</h1>
+	<form th:action="@{/admin/film}" method="POST" th:object="${film}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+		</div>
+		<input type="hidden" th:field="*{id}" />
+		<div>
+			Titolo: <span><input type="text" th:field="*{titolo}" /></span>
+			<span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></span>
+		</div>
+		<div>
+			Anno: <span><input type="text" th:field="*{anno}" /></span>
+			<span th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}"></span>
+		</div>
+		<div>
+			Durata (minuti): <span><input type="text" th:field="*{durata}" /></span>
+			<span th:if="${#fields.hasErrors('durata')}" th:errors="*{durata}"></span>
+		</div>
+		<div>
+			Genere: <span><input type="text" th:field="*{genere}" /></span>
+			<span th:if="${#fields.hasErrors('genere')}" th:errors="*{genere}"></span>
+		</div>
+		<div>
+			Paese di produzione: <span><input type="text" th:field="*{paeseProduzione}" /></span>
+			<span th:if="${#fields.hasErrors('paeseProduzione')}" th:errors="*{paeseProduzione}"></span>
+		</div>
+		<div>
+			Regista:
+			<span>
+				<select th:field="*{regista}">
+					<option value="">Seleziona un regista</option>
+					<option th:each="r : ${elencoRegisti}" th:value="${r.id}"
+						th:text="${r.nome} + ' ' + ${r.cognome}"></option>
+				</select>
+			</span>
+			<span th:if="${#fields.hasErrors('regista')}" th:errors="*{regista}"></span>
+		</div>
+		<div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+	</form>
+	<div><a href="/film">Torna ai film</a></div>
+</body>
+
+</html>

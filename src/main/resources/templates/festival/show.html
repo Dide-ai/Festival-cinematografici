@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SiwFestival - Dettagli festival</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<form th:action="@{/logout}" method="POST" style="display:inline;">
+				<button type="submit">Logout</button>
+			</form>
+		</div>
+		<div th:unless="${userDetails}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+
+	<h1 th:text="${festival.nome}">Nome del festival</h1>
+	<div><strong>Anno:</strong> <span th:text="${festival.anno}">anno</span></div>
+	<div><strong>Citta:</strong> <span th:text="${festival.citta}">citta</span></div>
+	<div><strong>Date:</strong> <span th:text="${festival.dataInizio} + ' - ' + ${festival.dataFine}">date</span></div>
+	<div><strong>Descrizione:</strong> <span th:text="${festival.descrizione}">descrizione</span></div>
+
+	<h2>Film partecipanti</h2>
+	<div th:if="${festival.filmPartecipanti == null || festival.filmPartecipanti.isEmpty()}">
+		Nessun film associato a questo festival
+	</div>
+	<ul>
+		<li th:each="film : ${festival.filmPartecipanti}">
+			<a th:href="@{'/film/' + ${film.id}}" th:text="${film.titolo}">titolo</a>
+			<form th:if="${isAdmin}" method="POST" style="display:inline;"
+				th:action="@{'/admin/festival/' + ${festival.id} + '/film/' + ${film.id} + '/elimina'}">
+				<button type="submit">Rimuovi dal festival</button>
+			</form>
+		</li>
+	</ul>
+	<form th:if="${isAdmin}" th:action="@{'/admin/festival/' + ${festival.id} + '/film'}" method="POST">
+		<select name="filmId" required>
+			<option value="">Seleziona un film</option>
+			<option th:each="f : ${elencoFilm}" th:value="${f.id}" th:text="${f.titolo}"></option>
+		</select>
+		<button type="submit">Associa al festival</button>
+	</form>
+
+	<h2>Proiezioni</h2>
+	<div th:if="${proiezioni == null || proiezioni.isEmpty()}">Nessuna proiezione programmata</div>
+	<ul>
+		<li th:each="proiezione : ${proiezioni}">
+			<span th:text="${proiezione.data} + ' ' + ${proiezione.ora}">data e ora</span>
+			<a th:href="@{'/film/' + ${proiezione.film.id}}" th:text="${proiezione.film.titolo}">titolo</a>
+			<span th:text="'- ' + ${proiezione.sala.nome}">sala</span>
+			<span th:text="'[' + ${proiezione.stato} + ']'">stato</span>
+		</li>
+	</ul>
+	<div><a th:href="@{'/festival/' + ${festival.id} + '/programma'}">Programma completo (React)</a></div>
+
+	<div th:if="${isAdmin}">
+		<a th:href="@{'/admin/festival/' + ${festival.id} + '/modifica'}">Modifica questo festival</a>
+		<form th:action="@{'/admin/festival/' + ${festival.id} + '/elimina'}" method="POST" style="display:inline;">
+			<button type="submit">Elimina questo festival</button>
+		</form>
+	</div>
+</body>
+
+</html>

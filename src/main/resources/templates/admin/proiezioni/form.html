@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SiwFestival - Proiezione</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<form th:action="@{/logout}" method="POST" style="display:inline;">
+				<button type="submit">Logout</button>
+			</form>
+		</div>
+		<div th:unless="${userDetails}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+
+	<h1 th:text="${proiezione} == null ? 'Programma una proiezione' : 'Sposta la proiezione'">Proiezione</h1>
+	<form th:action="@{${azione}}" method="POST">
+		<div th:if="${proiezione} == null">
+			Festival:
+			<span>
+				<select name="festivalId" required>
+					<option value="">Seleziona un festival</option>
+					<option th:each="f : ${elencoFestival}" th:value="${f.id}" th:text="${f.nome}"></option>
+				</select>
+			</span>
+		</div>
+		<div th:if="${proiezione} == null">
+			Film:
+			<span>
+				<select name="filmId" required>
+					<option value="">Seleziona un film</option>
+					<option th:each="f : ${elencoFilm}" th:value="${f.id}" th:text="${f.titolo}"></option>
+				</select>
+			</span>
+		</div>
+		<!-- in modifica film e festival non cambiano: si mostrano come testo -->
+		<div th:unless="${proiezione} == null">
+			<strong>Festival:</strong> <span th:text="${proiezione.festival.nome}">festival</span>
+		</div>
+		<div th:unless="${proiezione} == null">
+			<strong>Film:</strong> <span th:text="${proiezione.film.titolo}">film</span>
+		</div>
+		<div>
+			Sala:
+			<span>
+				<select name="salaId" required>
+					<option value="">Seleziona una sala</option>
+					<option th:each="s : ${elencoSale}" th:value="${s.id}" th:text="${s.nome}"
+						th:selected="${proiezione != null && proiezione.sala.id == s.id}"></option>
+				</select>
+			</span>
+		</div>
+		<div>
+			Data: <span><input type="date" name="data" required
+					th:value="${proiezione} == null ? '' : ${proiezione.data}" /></span>
+		</div>
+		<div>
+			Ora: <span><input type="time" name="ora" required
+					th:value="${proiezione} == null ? '' : ${proiezione.ora}" /></span>
+		</div>
+		<div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+	</form>
+	<div><a href="/admin/proiezioni">Torna alle proiezioni</a></div>
+</body>
+
+</html>

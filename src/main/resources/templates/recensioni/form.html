@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SiwFestival - Recensione</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<form th:action="@{/logout}" method="POST" style="display:inline;">
+				<button type="submit">Logout</button>
+			</form>
+		</div>
+		<div th:unless="${userDetails}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+
+	<h1>Recensione</h1>
+	<div>
+		<strong>Film:</strong>
+		<a th:href="@{'/film/' + ${film.id}}" th:text="${film.titolo}">titolo</a>
+	</div>
+
+	<form th:action="@{${azione}}" method="POST" th:object="${recensione}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+		</div>
+		<div>
+			Voto (1-10): <span><input type="number" min="1" max="10" th:field="*{voto}" /></span>
+			<span th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}"></span>
+		</div>
+		<div>
+			Testo: <span><textarea rows="4" cols="60" th:field="*{testo}"></textarea></span>
+			<span th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></span>
+		</div>
+		<div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+	</form>
+</body>
+
+</html>

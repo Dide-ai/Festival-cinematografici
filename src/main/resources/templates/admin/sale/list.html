@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SiwFestival - Sale</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<form th:action="@{/logout}" method="POST" style="display:inline;">
+				<button type="submit">Logout</button>
+			</form>
+		</div>
+		<div th:unless="${userDetails}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+
+	<h1>Sale</h1>
+	<div th:if="${elencoSale == null || elencoSale.isEmpty()}">Non ci sono sale nel sistema</div>
+	<ul>
+		<li th:each="sala : ${elencoSale}">
+			<span th:text="${sala.nome}">nome</span>
+			<span th:text="' - ' + ${sala.indirizzo} + ' - ' + ${sala.capienza} + ' posti'">dati</span>
+			<a th:href="@{'/admin/sale/' + ${sala.id} + '/modifica'}">Modifica</a>
+			<form th:action="@{'/admin/sale/' + ${sala.id} + '/elimina'}" method="POST" style="display:inline;">
+				<button type="submit">Elimina</button>
+			</form>
+		</li>
+	</ul>
+
+	<div><a href="/admin/sale/nuova">Aggiungi una sala</a></div>
+	<div><a href="/admin/index">Torna alla gestione</a></div>
+</body>
+
+</html>

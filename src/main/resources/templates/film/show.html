@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SiwFestival - Dettagli film</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<form th:action="@{/logout}" method="POST" style="display:inline;">
+				<button type="submit">Logout</button>
+			</form>
+		</div>
+		<div th:unless="${userDetails}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+
+	<h1 th:text="${film.titolo}">Titolo del film</h1>
+	<div><strong>Anno:</strong> <span th:text="${film.anno}">anno</span></div>
+	<div><strong>Durata:</strong> <span th:text="${film.durata} + ' minuti'">durata</span></div>
+	<div><strong>Genere:</strong> <span th:text="${film.genere}">genere</span></div>
+	<div><strong>Paese di produzione:</strong> <span th:text="${film.paeseProduzione}">paese</span></div>
+	<div>
+		<strong>Regista:</strong>
+		<a th:href="@{'/registi/' + ${film.regista.id}}"
+			th:text="${film.regista.nome} + ' ' + ${film.regista.cognome}">regista</a>
+	</div>
+
+	<h2>Festival ai quali partecipa</h2>
+	<div th:if="${film.festivalPartecipati == null || film.festivalPartecipati.isEmpty()}">
+		Questo film non partecipa a nessun festival
+	</div>
+	<ul>
+		<li th:each="festival : ${film.festivalPartecipati}">
+			<a th:href="@{'/festival/' + ${festival.id}}" th:text="${festival.nome}">nome</a>
+			<span th:text="'(' + ${festival.anno} + ')'">anno</span>
+		</li>
+	</ul>
+
+	<h2>Proiezioni</h2>
+	<div th:if="${film.proiezioni == null || film.proiezioni.isEmpty()}">Nessuna proiezione programmata</div>
+	<ul>
+		<li th:each="proiezione : ${film.proiezioni}">
+			<span th:text="${proiezione.data} + ' ' + ${proiezione.ora}">data e ora</span>
+			<span th:text="'- ' + ${proiezione.sala.nome} + ' - ' + ${proiezione.festival.nome}">sala e festival</span>
+			<span th:text="'[' + ${proiezione.stato} + ']'">stato</span>
+		</li>
+	</ul>
+
+	<h2>Recensioni</h2>
+	<div th:if="${recensioni == null || recensioni.isEmpty()}">Questo film non ha ancora recensioni</div>
+	<ul>
+		<li th:each="r : ${recensioni}">
+			<span th:text="${r.utente.nome} + ' ' + ${r.utente.cognome}">autore</span>
+			<span th:text="'- voto ' + ${r.voto} + '/10 - ' + ${r.data}">voto</span>
+			<div th:text="${r.testo}">testo</div>
+			<div th:if="${utenteId != null && r.utente.id == utenteId}">
+				<a th:href="@{'/recensioni/' + ${r.id} + '/modifica'}">Modifica</a>
+				<form th:action="@{'/recensioni/' + ${r.id} + '/elimina'}" method="POST" style="display:inline;">
+					<button type="submit">Elimina</button>
+				</form>
+			</div>
+		</li>
+	</ul>
+
+	<div th:if="${userDetails != null && !giaRecensito}">
+		<h3>Scrivi una recensione</h3>
+		<form th:action="@{'/film/' + ${film.id} + '/recensioni'}" method="POST" th:object="${recensione}">
+			<div>
+				Voto (1-10): <span><input type="number" min="1" max="10" th:field="*{voto}" /></span>
+			</div>
+			<div>
+				Testo: <span><textarea rows="4" cols="60" th:field="*{testo}"></textarea></span>
+			</div>
+			<div>
+				<button type="submit">Invia recensione</button>
+			</div>
+		</form>
+	</div>
+	<div th:unless="${userDetails}"><a href="/login">Accedi per scrivere una recensione</a></div>
+
+	<div th:if="${isAdmin}">
+		<a th:href="@{'/admin/film/' + ${film.id} + '/modifica'}">Modifica questo film</a>
+		<form th:action="@{'/admin/film/' + ${film.id} + '/elimina'}" method="POST" style="display:inline;">
+			<button type="submit">Elimina questo film</button>
+		</form>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  base: '/react/',
+  build: {
+    outDir: '../src/main/resources/static/react',
+    emptyOutDir: true,
+    rollupOptions: { output: { entryFileNames: 'programma.js',
+                               assetFileNames:  'programma.[ext]' } }
+  },
+  server: { proxy: { '/api': 'http://localhost:8080' } }
+})
