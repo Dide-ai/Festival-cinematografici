@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-import it.uniroma3.siw.festival.validation.AnnoNonFuturo;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,9 +29,10 @@ public class Festival {
 	@Column(nullable = false)
 	private String nome;
 
+	// niente @AnnoNonFuturo: l'anno di un'edizione di festival si programma in anticipo.
+	// Il vincolo resta su Film.anno, che e' l'anno di produzione e non puo' essere futuro.
 	@NotNull
 	@Min(1895)
-	@AnnoNonFuturo
 	@Column(nullable = false)
 	private Integer anno;
 

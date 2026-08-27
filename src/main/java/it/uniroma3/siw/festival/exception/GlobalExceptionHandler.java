@@ -18,21 +18,21 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public String handleNoResourceFound(NoResourceFoundException e, Model model) {
 		model.addAttribute("errorMessage", "Pagina non trovata");
-		return "error/errore";
+		return "error";
 	}
 
 	@ExceptionHandler(OperazioneNonPermessaException.class)
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public String handleOperazioneNonPermessa(OperazioneNonPermessaException e, Model model) {
 		model.addAttribute("errorMessage", e.getMessage());
-		return "error/errore";
+		return "error";
 	}
 
 	@ExceptionHandler({ SalaOccupataException.class, EntitaDuplicataException.class })
 	@ResponseStatus(HttpStatus.CONFLICT)
 	public String handleConflitto(RuntimeException e, Model model) {
 		model.addAttribute("errorMessage", e.getMessage());
-		return "error/errore";
+		return "error";
 	}
 
 	@ExceptionHandler(Exception.class)
@@ -42,6 +42,6 @@ public class GlobalExceptionHandler {
 		// diventa una pagina 500 muta
 		logger.error("Errore non gestito", e);
 		model.addAttribute("errorMessage", "Si è verificato un errore interno.");
-		return "error/errore";
+		return "error";
 	}
 }

@@ -24,7 +24,11 @@
 	</div>
 
 	<h1>Operazione non riuscita</h1>
-	<p th:text="${errorMessage}">Messaggio di errore</p>
+	<!-- errorMessage lo mette GlobalExceptionHandler. Gli errori che nascono nei filtri di
+	     Spring Security (403 su /admin/**) arrivano invece qui come fallback di Spring Boot,
+	     senza passare dal @ControllerAdvice: in quel caso ci sono solo status ed error. -->
+	<p th:if="${errorMessage}" th:text="${errorMessage}">Messaggio di errore</p>
+	<p th:unless="${errorMessage}" th:text="${status} + ' - ' + ${error}">403 - Forbidden</p>
 	<div><a href="/">Torna alla homepage</a></div>
 </body>
 
