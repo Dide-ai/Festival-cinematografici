@@ -28,33 +28,31 @@
 		<div>
 			<label>Nome</label>
 			<span><input type="text" required th:field="${utente.nome}" /></span>
-			<span th:if="${#fields.hasErrors('utente.nome')}" th:errors="${utente.nome}" th:style="'color:red'">
+			<span class="errore" th:if="${#fields.hasErrors('utente.nome')}" th:errors="${utente.nome}">
 			</span>
 		</div>
 		<div>
 			<label>Cognome</label>
 			<span><input type="text" required th:field="${utente.cognome}" /></span>
-			<span th:if="${#fields.hasErrors('utente.cognome')}" th:errors="${utente.cognome}" th:style="'color:red'">
+			<span class="errore" th:if="${#fields.hasErrors('utente.cognome')}" th:errors="${utente.cognome}">
 			</span>
 		</div>
 		<div>
 			<label>Email</label>
 			<span><input type="text" required th:field="${utente.email}" /></span>
-			<span th:if="${#fields.hasErrors('utente.email')}" th:errors="${utente.email}" th:style="'color:red'">
+			<span class="errore" th:if="${#fields.hasErrors('utente.email')}" th:errors="${utente.email}">
 			</span>
 		</div>
 		<div>
 			<label>Username</label>
 			<span><input type="text" required th:field="${credenziali.username}" /></span>
-			<span th:if="${#fields.hasErrors('credenziali.username')}" th:errors="${credenziali.username}"
-				th:style="'color:red'">
+			<span class="errore" th:if="${#fields.hasErrors('credenziali.username')}" th:errors="${credenziali.username}">
 			</span>
 		</div>
 		<div>
 			<label>Password</label>
 			<span><input type="password" required th:field="${credenziali.password}" /></span>
-			<span th:if="${#fields.hasErrors('credenziali.password')}" th:errors="${credenziali.password}"
-				th:style="'color:red'">
+			<span class="errore" th:if="${#fields.hasErrors('credenziali.password')}" th:errors="${credenziali.password}">
 			</span>
 		</div>
 		<div>

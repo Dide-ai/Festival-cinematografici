@@ -31,15 +31,15 @@
 		<input type="hidden" th:field="*{id}" />
 		<div>
 			Nome: <span><input type="text" th:field="*{nome}" /></span>
-			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 		</div>
 		<div>
 			Indirizzo: <span><input type="text" th:field="*{indirizzo}" /></span>
-			<span th:if="${#fields.hasErrors('indirizzo')}" th:errors="*{indirizzo}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('indirizzo')}" th:errors="*{indirizzo}"></span>
 		</div>
 		<div>
 			Capienza: <span><input type="text" th:field="*{capienza}" /></span>
-			<span th:if="${#fields.hasErrors('capienza')}" th:errors="*{capienza}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('capienza')}" th:errors="*{capienza}"></span>
 		</div>
 		<div>
 			<span><button type="submit">Conferma</button></span>

@@ -31,27 +31,27 @@
 		<input type="hidden" th:field="*{id}" />
 		<div>
 			Nome: <span><input type="text" th:field="*{nome}" /></span>
-			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 		</div>
 		<div>
 			Anno: <span><input type="text" th:field="*{anno}" /></span>
-			<span th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}"></span>
 		</div>
 		<div>
 			Citta: <span><input type="text" th:field="*{citta}" /></span>
-			<span th:if="${#fields.hasErrors('citta')}" th:errors="*{citta}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('citta')}" th:errors="*{citta}"></span>
 		</div>
 		<div>
 			Data di inizio: <span><input type="date" th:field="*{dataInizio}" /></span>
-			<span th:if="${#fields.hasErrors('dataInizio')}" th:errors="*{dataInizio}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('dataInizio')}" th:errors="*{dataInizio}"></span>
 		</div>
 		<div>
 			Data di fine: <span><input type="date" th:field="*{dataFine}" /></span>
-			<span th:if="${#fields.hasErrors('dataFine')}" th:errors="*{dataFine}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('dataFine')}" th:errors="*{dataFine}"></span>
 		</div>
 		<div>
 			Descrizione: <span><textarea rows="4" cols="60" th:field="*{descrizione}"></textarea></span>
-			<span th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}"></span>
 		</div>
 		<div>
 			<span><button type="submit">Conferma</button></span>

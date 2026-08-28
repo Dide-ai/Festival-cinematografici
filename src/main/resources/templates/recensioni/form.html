@@ -35,11 +35,11 @@
 		</div>
 		<div>
 			Voto (1-10): <span><input type="number" min="1" max="10" th:field="*{voto}" /></span>
-			<span th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}"></span>
 		</div>
 		<div>
 			Testo: <span><textarea rows="4" cols="60" th:field="*{testo}"></textarea></span>
-			<span th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></span>
 		</div>
 		<div>
 			<span><button type="submit">Conferma</button></span>

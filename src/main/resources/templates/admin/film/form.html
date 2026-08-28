@@ -31,23 +31,23 @@
 		<input type="hidden" th:field="*{id}" />
 		<div>
 			Titolo: <span><input type="text" th:field="*{titolo}" /></span>
-			<span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></span>
 		</div>
 		<div>
 			Anno: <span><input type="text" th:field="*{anno}" /></span>
-			<span th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}"></span>
 		</div>
 		<div>
 			Durata (minuti): <span><input type="text" th:field="*{durata}" /></span>
-			<span th:if="${#fields.hasErrors('durata')}" th:errors="*{durata}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('durata')}" th:errors="*{durata}"></span>
 		</div>
 		<div>
 			Genere: <span><input type="text" th:field="*{genere}" /></span>
-			<span th:if="${#fields.hasErrors('genere')}" th:errors="*{genere}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('genere')}" th:errors="*{genere}"></span>
 		</div>
 		<div>
 			Paese di produzione: <span><input type="text" th:field="*{paeseProduzione}" /></span>
-			<span th:if="${#fields.hasErrors('paeseProduzione')}" th:errors="*{paeseProduzione}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('paeseProduzione')}" th:errors="*{paeseProduzione}"></span>
 		</div>
 		<div>
 			Regista:
@@ -58,7 +58,7 @@
 						th:text="${r.nome} + ' ' + ${r.cognome}"></option>
 				</select>
 			</span>
-			<span th:if="${#fields.hasErrors('regista')}" th:errors="*{regista}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('regista')}" th:errors="*{regista}"></span>
 		</div>
 		<div>
 			<span><button type="submit">Conferma</button></span>

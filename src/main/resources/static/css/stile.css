@@ -1,33 +1,124 @@
-body { 
-    font-family: "Geneva";
-    color:dimgrey;
+/* SiwFestival — foglio di stile unico.
+   Il verde e' quello del logo. Per cambiare tema bastano le righe qui sotto. */
+:root {
+	--accento: rgb(98, 192, 144);
+	--accento-scuro: rgb(46, 125, 88);
+	--testo: #2e3338;
+	--tenue: #6b7480;
+	--bordo: #d8dce0;
+	--errore: #c0392b;
+	--larghezza: 58rem;
+	/* pagina sempre chiara: senza, un browser in dark mode rende il testo illeggibile */
+	color-scheme: light;
 }
 
-a { 
-	text-decoration: none; 
-    color: darkgrey;
+/* Impianto: una colonna centrata, non testo da bordo a bordo. */
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	color: var(--testo);
+	background-color: #ffffff;
+	line-height: 1.6;
+	max-width: var(--larghezza);
+	margin: 0 auto 4rem;
+	padding: 0 1.5rem;
 }
 
-a:hover { 
-	text-decoration: underline; 
-}
-
-label {
-	width: 8em;
-	display: inline-block;
-}
-
+/* Barra di stato in alto: utente e logout a destra. I margini negativi la fanno
+   arrivare ai bordi della colonna, oltre il padding del body. */
 header {
-  background-color: rgb(98, 192, 144);
-  color: white;
-  height: 1.5em;
-  margin-bottom: 0.5em;
-  padding: 0.2em;
-  text-align: right; 
+	background-color: var(--accento);
+	color: white;
+	margin: 0 -1.5rem 1rem;
+	padding: 0.5rem 1.5rem;
+	text-align: right;
+	font-size: 0.9rem;
 }
 
-header a { 
-	text-decoration: none; 
-    color: white;
-    font-size: 0.6em;
+header a, header span { color: white; }
+
+header button {
+	background: none;
+	border: 1px solid rgba(255, 255, 255, 0.75);
+	color: white;
+	font-size: 0.85rem;
+	padding: 0.1rem 0.6rem;
 }
+
+/* Il logo nell'HTML ha width="50%" e occuperebbe un terzo dello schermo. */
+img {
+	width: auto;
+	max-width: 190px;
+	height: auto;
+	display: block;
+	margin: 1.25rem 0 1.75rem;
+}
+
+/* Titoli: gerarchia visibile e aria sopra le sezioni. */
+h1 { font-size: 1.7rem; margin: 0 0 1rem; }
+
+h2 {
+	font-size: 1.2rem;
+	margin: 2rem 0 0.6rem;
+	padding-bottom: 0.3rem;
+	border-bottom: 1px solid var(--bordo);
+}
+
+h3 { font-size: 1rem; margin: 1.5rem 0 0.5rem; }
+
+/* Link: prima erano grigio chiaro su grigio. */
+a { color: var(--accento-scuro); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Elenchi: un po' di respiro fra le voci. */
+ul { padding-left: 1.2rem; margin: 0.5rem 0 1rem; }
+li { margin-bottom: 0.4rem; }
+strong { color: var(--tenue); font-weight: 600; }
+
+/* Righe di form: ogni campo sta in un div, quindi lo spazio va li'. */
+form div { margin-bottom: 0.7rem; }
+label { display: inline-block; min-width: 6rem; }
+
+input, select, textarea {
+	font: inherit;
+	color: inherit;
+	padding: 0.35rem 0.5rem;
+	border: 1px solid var(--bordo);
+	border-radius: 3px;
+	background-color: white;
+}
+
+input:focus, select:focus, textarea:focus {
+	outline: 2px solid var(--accento);
+	outline-offset: -1px;
+}
+
+button {
+	font: inherit;
+	background-color: var(--accento);
+	color: white;
+	border: none;
+	border-radius: 3px;
+	padding: 0.4rem 1rem;
+	cursor: pointer;
+}
+
+button:hover { background-color: var(--accento-scuro); }
+
+/* Messaggi di validazione accanto ai campi. */
+.errore {
+	color: var(--errore);
+	font-size: 0.9rem;
+	margin-left: 0.5rem;
+}
+
+/* Tabella: la usa solo il programma delle proiezioni generato da React. */
+table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+
+th, td {
+	border: 1px solid var(--bordo);
+	padding: 0.45rem 0.7rem;
+	text-align: left;
+}
+
+th { background-color: var(--accento); color: white; font-weight: 600; }
+tbody tr:nth-child(even) { background-color: #f5f7f8; }

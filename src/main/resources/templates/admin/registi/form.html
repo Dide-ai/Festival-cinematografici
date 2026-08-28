@@ -31,19 +31,19 @@
 		<input type="hidden" th:field="*{id}" />
 		<div>
 			Nome: <span><input type="text" th:field="*{nome}" /></span>
-			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 		</div>
 		<div>
 			Cognome: <span><input type="text" th:field="*{cognome}" /></span>
-			<span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
 		</div>
 		<div>
 			Data di nascita: <span><input type="date" th:field="*{dataNascita}" /></span>
-			<span th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}"></span>
 		</div>
 		<div>
 			Nazionalita: <span><input type="text" th:field="*{nazionalita}" /></span>
-			<span th:if="${#fields.hasErrors('nazionalita')}" th:errors="*{nazionalita}"></span>
+			<span class="errore" th:if="${#fields.hasErrors('nazionalita')}" th:errors="*{nazionalita}"></span>
 		</div>
 		<div>
 			<span><button type="submit">Conferma</button></span>
