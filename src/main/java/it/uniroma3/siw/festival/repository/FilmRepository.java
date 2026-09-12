@@ -13,7 +13,7 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
 
 	boolean existsByTitoloAndAnnoAndIdNot(String titolo, Integer anno, Long id);
 
-	@Query("select f from Film f join fetch f.regista order by f.titolo")
+	@Query("select f from Film f join fetch f.regista ")
 	List<Film> findAllConRegista();
 
 	long countByRegistaId(Long registaId);   // dipendenze prima di cancellare un regista
